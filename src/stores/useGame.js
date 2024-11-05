@@ -35,11 +35,6 @@ export default create(
       },
 
       /**
-       * Pixelate screen
-       */
-      // pixelated: false,
-
-      /**
        * Mode
        */
       mode: getLocalStorage("mode") || "random", // "random", "tour", "adventure"
@@ -77,6 +72,7 @@ export default create(
           };
         });
       },
+
       blocksSeed: 0,
 
       /**
@@ -98,6 +94,22 @@ export default create(
       highScoreRandom: getLocalStorage("highScoreRandom") || 0,
       highScoreCopacabana: getLocalStorage("highScoreCopacabana") || 0,
       highScoreSantaMonica: getLocalStorage("highScoreSantaMonica") || 0,
+
+      /**
+       * Current score
+       */
+      score: 0, // Initialize the current score
+      setScore: (newScore) => {
+        set(() => {
+          // You could also save the high score logic here
+          const highScore = getLocalStorage("highScore") || 0;
+          if (newScore > highScore) {
+            setLocalStorage("highScore", newScore);
+            return { highScore }; // Update the high score
+          }
+          return { score: newScore };
+        });
+      },
 
       /**
        * Time
@@ -122,7 +134,7 @@ export default create(
       restart: () => {
         set((state) => {
           if (state.phase === "playing" || state.phase === "ended") {
-            return { phase: "ready", blocksSeed: Math.random() };
+            return { phase: "ready", blocksSeed: Math.random(), score: 0 }; // Reset score on restart
           }
           return {};
         });
@@ -133,6 +145,9 @@ export default create(
           if (state.phase === "playing") {
             const endTime = Date.now();
             const score = endTime - state.startTime;
+
+            // Update the score when the game ends
+            state.setScore(score); // Update the current score
 
             if (state.mode === "random") {
               const highScoreRandom =

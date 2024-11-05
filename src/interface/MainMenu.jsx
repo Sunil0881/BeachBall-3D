@@ -16,27 +16,59 @@ export default function MainMenu() {
     difficulty,
     setDifficulty,
     setIsInGame,
+    setScore,
   } = useGame();
 
   const [isSettings, setIsSettings] = useState(false);
+  const [score, setScoreState] = useState(0); 
 
+  // Event listener for Enter key
   document.addEventListener("keydown", (e) => {
     if (e.code === "Enter") {
       setIsInGame(true);
     }
   });
 
-  const handleBlocksCountChange = (count) => {
-    setBlocksCount(count);
-    setLocalStorage("blocksCount", count);
-    console.log("Selected Block Count:", count); // Log the selected block count
+  // Function to calculate score based on difficulty and blocks count
+  const calculateScore = (difficultyLevel, blocksCount) => {
+    let multiplier;
+
+    switch (difficultyLevel) {
+      case 1:
+        multiplier = 10;
+        break;
+      case 3:
+        multiplier = 20;
+        break;
+      case 5:
+        multiplier = 30;
+        break;
+      case 10:
+        multiplier = 40;
+        break;
+      default:
+        multiplier = 10; // Default to the easiest difficulty if there's an issue
+    }
+
+    const score = multiplier * blocksCount;
+    console.log("Calculated Score:", score);
+    return score;
   };
 
-  const handleDifficultyChange = (difficultyLevel) => {
-    setDifficulty(difficultyLevel);
-    setLocalStorage("difficulty", difficultyLevel);
-    console.log("Selected Difficulty:", difficultyLevel); // Log the selected difficulty
-  };
+  // Update score when blocks count or difficulty changes
+const handleBlocksCountChange = (count) => {
+  setBlocksCount(count);
+  setLocalStorage("blocksCount", count);
+  const score = calculateScore(difficulty, count);
+  setScore(score); // Update global score in store
+};
+
+const handleDifficultyChange = (difficultyLevel) => {
+  setDifficulty(difficultyLevel);
+  setLocalStorage("difficulty", difficultyLevel);
+  const score = calculateScore(difficultyLevel, blocksCount);
+  setScore(score); // Update global score in store
+};
 
   return (
     <div className="main-menu">
