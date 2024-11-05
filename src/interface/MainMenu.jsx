@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import useGame from "../stores/useGame.js";
 import LogoBall from "../assets/logo_ball_stroke.svg";
@@ -26,6 +25,18 @@ export default function MainMenu() {
       setIsInGame(true);
     }
   });
+
+  const handleBlocksCountChange = (count) => {
+    setBlocksCount(count);
+    setLocalStorage("blocksCount", count);
+    console.log("Selected Block Count:", count); // Log the selected block count
+  };
+
+  const handleDifficultyChange = (difficultyLevel) => {
+    setDifficulty(difficultyLevel);
+    setLocalStorage("difficulty", difficultyLevel);
+    console.log("Selected Difficulty:", difficultyLevel); // Log the selected difficulty
+  };
 
   return (
     <div className="main-menu">
@@ -77,10 +88,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 1 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(1);
-                    setLocalStorage("difficulty", 1);
-                  }}
+                  onClick={() => handleDifficultyChange(1)}
                 >
                   Easy
                 </div>
@@ -88,10 +96,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 3 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(3);
-                    setLocalStorage("difficulty", 3);
-                  }}
+                  onClick={() => handleDifficultyChange(3)}
                 >
                   Medium
                 </div>
@@ -99,10 +104,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 5 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(5);
-                    setLocalStorage("difficulty", 5);
-                  }}
+                  onClick={() => handleDifficultyChange(5)}
                 >
                   Hard
                 </div>
@@ -110,10 +112,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 10 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(10);
-                    setLocalStorage("difficulty", 10);
-                  }}
+                  onClick={() => handleDifficultyChange(10)}
                 >
                   Evil
                 </div>
@@ -125,10 +124,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 5 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(5);
-                    setLocalStorage("blocksCount", 5);
-                  }}
+                  onClick={() => handleBlocksCountChange(5)}
                 >
                   5
                 </div>
@@ -136,10 +132,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 10 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(10);
-                    setLocalStorage("blocksCount", 10);
-                  }}
+                  onClick={() => handleBlocksCountChange(10)}
                 >
                   10
                 </div>
@@ -148,10 +141,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 15 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(15);
-                    setLocalStorage("blocksCount", 15);
-                  }}
+                  onClick={() => handleBlocksCountChange(15)}
                 >
                   15
                 </div>
@@ -159,10 +149,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 20 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(20);
-                    setLocalStorage("blocksCount", 20);
-                  }}
+                  onClick={() => handleBlocksCountChange(20)}
                 >
                   20
                 </div>
@@ -170,10 +157,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 30 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(30);
-                    setLocalStorage("blocksCount", 30);
-                  }}
+                  onClick={() => handleBlocksCountChange(30)}
                 >
                   30
                 </div>
@@ -181,10 +165,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 40 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(40);
-                    setLocalStorage("blocksCount", 40);
-                  }}
+                  onClick={() => handleBlocksCountChange(40)}
                 >
                   40
                 </div>
@@ -192,10 +173,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 50 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(50);
-                    setLocalStorage("blocksCount", 50);
-                  }}
+                  onClick={() => handleBlocksCountChange(50)}
                 >
                   50
                 </div>
@@ -203,10 +181,7 @@ export default function MainMenu() {
                   className={`main-menu-selection main-menu-selection-short ${
                     blocksCount === 100 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setBlocksCount(100);
-                    setLocalStorage("blocksCount", 100);
-                  }}
+                  onClick={() => handleBlocksCountChange(100)}
                 >
                   100
                 </div>
@@ -222,10 +197,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 1 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(1);
-                    setLocalStorage("difficulty", 1);
-                  }}
+                  onClick={() => handleDifficultyChange(1)}
                 >
                   Easy
                 </div>
@@ -233,10 +205,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 3 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(3);
-                    setLocalStorage("difficulty", 3);
-                  }}
+                  onClick={() => handleDifficultyChange(3)}
                 >
                   Medium
                 </div>
@@ -244,10 +213,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 5 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(5);
-                    setLocalStorage("difficulty", 5);
-                  }}
+                  onClick={() => handleDifficultyChange(5)}
                 >
                   Hard
                 </div>
@@ -255,10 +221,7 @@ export default function MainMenu() {
                   className={`main-menu-selection ${
                     parseInt(difficulty) === 10 ? "main-menu-selected" : ""
                   }`}
-                  onClick={() => {
-                    setDifficulty(10);
-                    setLocalStorage("difficulty", 10);
-                  }}
+                  onClick={() => handleDifficultyChange(10)}
                 >
                   Evil
                 </div>
@@ -305,7 +268,6 @@ export default function MainMenu() {
             © 2023 Gryffindors
           </a>
         </div>
-       
       </div>
       <a href="https://github.com/Gryffindors-Private-Limited" target="_blank">
         <img
