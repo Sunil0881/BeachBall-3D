@@ -47,8 +47,18 @@ export default function Interface() {
     restart();
   };
 
+  const extractUserIdFromUrl = () => {
+    
+    const path = window.location.href;
+
+    console.log("path",path);
+    const userId = path.split("/").pop();
+    console.log("now",userId);
+    return userId;
+  };
+
   const sendScoreToBackend = async (points) => {
-    const userId = "Sunil"; // Replace with actual user ID
+    const userId = extractUserIdFromUrl();
     const scoreType = "game2"; // Replace with the relevant score type if needed
   
     const payload = {
