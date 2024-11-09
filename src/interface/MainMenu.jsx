@@ -297,7 +297,7 @@ const handleDifficultyChange = (difficultyLevel) => {
       <div className="main-menu-about-section">
         <div className="main-menu-about">
           <a href="https://github.com/Gryffindors-Private-Limited">
-            © 2023 Gryffindors
+            © 2024 Gryffindors
           </a>
         </div>
       </div>
