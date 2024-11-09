@@ -13,7 +13,7 @@ import useGame from "./stores/useGame.js";
 export default function Ball() {
   const ballTexture = useLoader(
     THREE.TextureLoader,
-    "./textures/starknet_logo_3.png"
+    "./textures/starknet_logo_4.png"
   );
 
   const body = useRef();
