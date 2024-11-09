@@ -10,6 +10,8 @@ import Game from "./Game.jsx";
 import Interface from "./interface/Interface";
 import Controls from "./utils/Controls";
 import MainMenu from "./interface/MainMenu.jsx";
+import { Provider } from "react-redux";
+import store from "./interface/global/store.js";
 
 // Prevent right click
 document.addEventListener("contextmenu", (e) => e.preventDefault());
@@ -20,6 +22,7 @@ export default function App() {
 
   return (
     <>
+    <Provider store={store}>
       {isInGame ? (
         <Controls>
           <Canvas
@@ -43,6 +46,7 @@ export default function App() {
       ) : (
         <MainMenu />
       )}
+      </Provider>
     </>
   );
 }

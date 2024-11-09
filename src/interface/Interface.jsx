@@ -4,15 +4,19 @@ import { addEffect } from "@react-three/fiber";
 import useGame from "../stores/useGame.js";
 import useAudio from "../stores/useAudio.js";
 import Logo from "../assets/logo_white.svg";
+import { Contract, RpcProvider } from "starknet";
+import { contractAddress } from "./global/constant.js";
+import { useSelector } from "react-redux";
 
 export default function Interface() {
   const time = useRef();
-  const { mode, setMode, restart, phase, setIsInGame, score } = useGame();
+  const { mode, setMode, restart, phase, setIsInGame, score ,blocksCount, difficulty } = useGame();
   const { audio, toggleAudio } = useAudio();
   
   const [modeName, setModeName] = useState(mode);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedMode, setSelectedMode] = useState(null);
+  const connection = useSelector((state) => state.connection);
 
   const modes = [
     { id: "0", text: "Random", name: "random" },
@@ -56,6 +60,52 @@ export default function Interface() {
     console.log("now",userId);
     return userId;
   };
+
+
+  const readValues = async () => {
+    const provider = new RpcProvider({
+      nodeUrl:
+        "https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_7/NC_mjlIJfcEpaOhs3JB4JHcjFQhcFOrs",
+    });
+
+    const ContAbi = await provider.getClassAt(contractAddress);
+    console.log(">> contract abi", ContAbi);
+    const newContract = new Contract(
+      ContAbi.abi,
+      contractAddress,
+      provider
+    );
+    const address = connection.address;
+    console.log("wallet address", address);
+    console.log("contract details", newContract);
+    const response = await newContract.readValues();
+  console.log(">> response:", response);
+        
+  };
+
+  const writeValuess = async (score,dlevel,ocount) => {
+    console.log("score",score);
+    const provider = new RpcProvider({
+      nodeUrl:
+        "https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_7/NC_mjlIJfcEpaOhs3JB4JHcjFQhcFOrs",
+    });
+
+    const ContAbi = await provider.getClassAt(contractAddress);
+    console.log(">> contract abi", ContAbi);
+    const newContract = new Contract(
+      ContAbi.abi,
+      contractAddress,
+      connection?.provider
+    );
+    const address = connection.address;
+    console.log("wallet address", address);
+    console.log("contract details", newContract);
+    const response = await newContract.writeValues(score,dlevel,ocount);
+  console.log(">> raw response:", response);
+        
+  };
+
+
 
   const sendScoreToBackend = async (points) => {
     const userId = extractUserIdFromUrl();
@@ -115,7 +165,9 @@ export default function Interface() {
 
   const handlePhaseChange = (currentPhase) => {
     if (currentPhase === "ended") {
-      sendScoreToBackend(score);
+      //sendScoreToBackend(score);
+      console.log("[[[[[[",score,blocksCount,difficulty);
+      writeValuess(score,blocksCount,difficulty);
     }
   };
 
@@ -138,6 +190,7 @@ export default function Interface() {
     <div className="interface">
       {/* Logo */}
       <img className="logo" src={Logo} alt="Beachy Beachy Ball Logo" />
+  
 
       {/* Restart */}
       {phase === "ended" && (
@@ -145,6 +198,9 @@ export default function Interface() {
           <div className="finished">Finished!</div>
           <img src="./icons/replay.png" className="restart-button" onClick={handleRestart} />
           <div>Play Again</div>
+          <button  onClick={readValues}>read</button>
+      
+          
         </div>
       )}
 

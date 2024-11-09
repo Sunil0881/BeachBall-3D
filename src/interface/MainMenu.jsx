@@ -4,6 +4,7 @@ import LogoBall from "../assets/logo_ball_stroke.svg";
 import Wordmark from "../assets/wordmark.svg";
 import gryLogo from "../../src/assets/gryffindors logo.png";
 import { getLocalStorage, setLocalStorage } from "../stores/utils.js";
+import Navbar from "./Navbar.jsx";
 
 export default function MainMenu() {
   const {
@@ -51,6 +52,8 @@ export default function MainMenu() {
     }
 
     const score = multiplier * blocksCount;
+    console.log("blocksCount:", blocksCount);
+    console.log("Dlevel:", multiplier);
     console.log("Calculated Score:", score);
     return score;
   };
@@ -60,6 +63,7 @@ const handleBlocksCountChange = (count) => {
   setBlocksCount(count);
   setLocalStorage("blocksCount", count);
   const score = calculateScore(difficulty, count);
+  
   setScore(score); // Update global score in store
 };
 
@@ -74,6 +78,7 @@ const handleDifficultyChange = (difficultyLevel) => {
     <div className="main-menu">
       <img className="logo-ball" src={LogoBall} />
       <img className="wordmark" src={Wordmark} />
+      <Navbar />
       <div className="main-menu-button" onClick={() => setIsInGame(true)}>
         Play
       </div>
